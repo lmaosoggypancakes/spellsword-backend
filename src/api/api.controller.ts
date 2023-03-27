@@ -15,7 +15,7 @@ export class ApiController {
   }
 
   @Get('users/:username')
-  async getUser(@Param('id') username: string): Promise<User> {
+  async getUser(@Param('username') username: string): Promise<User> {
     return await this.usersService.user({ username });
   }
 
