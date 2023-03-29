@@ -4,7 +4,6 @@ import { ZodValidationPipe } from 'nestjs-zod';
 import { ApiModule } from './api/api.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-
 @Module({
   imports: [ApiModule, UsersModule, AuthModule],
   controllers: [],

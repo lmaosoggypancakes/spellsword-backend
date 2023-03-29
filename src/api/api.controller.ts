@@ -5,10 +5,11 @@ import {
   NotFoundException,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards';
 import { CreateUserDto } from 'src/models';
 import { UsersService } from 'src/users/users.service';
 import { ApiService } from './api.service';
@@ -24,6 +25,11 @@ export class ApiController {
     return await this.usersService.users({});
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('hello')
+  async hello(@Req() req): Promise<User[]> {
+    return req.user;
+  }
   @Get('users/:username')
   async getUser(@Param('username') username: string): Promise<User> {
     const user = await this.usersService.user({ username });
