@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
@@ -24,5 +24,35 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async verify(token: string, isWs = false): Promise<User | null> {
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
+      const user = await this.usersService.user({
+        id: payload.id,
+      });
+
+      if (!user) {
+        if (isWs) {
+          return null;
+        } else {
+          throw new HttpException(
+            'Unauthorized access',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+      }
+
+      return user;
+    } catch (err: any) {
+      if (isWs) {
+        return null;
+      } else {
+        throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 }
