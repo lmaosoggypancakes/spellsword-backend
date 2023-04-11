@@ -15,5 +15,34 @@ model User {
   following   User[]     @relation("userFollows")
   followedBy  User[]     @relation("userFollows")
   created     DateTime   @default(now())
-  picture     String                                  
+  picture     String  
+  allMoves    Move[]    
+  allGames    Game[]     @relation("gamePlayers")    
+  gamesWon    Game[]     @relation("gameWinner")                     
+}
+
+model Game {
+  id          String     @default(uuid()) @id
+  players     User[]     @relation("gamePlayers")// each game has multiple (for now, 2)
+  characters  String    // the default randomly generated characters for the initial state of the game
+  moves       Move[]    // a list of all moves both users have made
+  status      GameStatus
+  winner      User?      @relation("gameWinner", fields: [winnerId], references: [id])      
+  winnerId    String?   
+}
+
+model Move {
+  id          String    @default(uuid()) @id
+  guess       String 
+  valid       Boolean
+  points      Int
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  game        Game      @relation(fields: [gameId], references: [id])
+  gameId      String
+}
+
+enum GameStatus {
+  IN_PROGRESS
+  ENDED
 }
