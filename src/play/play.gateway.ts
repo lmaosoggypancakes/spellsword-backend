@@ -6,17 +6,13 @@ import {
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { Server } from 'net';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from '@prisma/client';
-@UseGuards(JwtAuthGuard)
-@WebSocketGateway(8001, { cors: '*:*' })
+@WebSocketGateway(8001, { cors: '*:*', path: '/matchmake' })
 export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
   constructor(private authService: AuthService) {}
-  users = new Map<string, User>();
+  users = new Map<Socket, User>();
   async handleConnection(client: Socket, ...args: any[]) {
-    console.log('connection!');
     const user: User = await this.authService.verify(
       client.handshake.auth.token,
       true,
@@ -30,13 +26,14 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       message: `Hello, ${user.username}!`,
     });
 
-    this.users.set(client.id, user);
+    this.users.set(client, user);
     if (this.users.size == 2) {
       const users = [];
       for (let u of this.users.values()) {
         users.push(u.username);
       }
-      client.emit('match', {
+
+      this.server.emit('match', {
         message: `You have been matched: ${users}`,
       });
     }

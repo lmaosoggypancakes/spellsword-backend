@@ -20,7 +20,6 @@ import { PlayModule } from './play/play.module';
       provide: APP_PIPE,
       useClass: ZodValidationPipe,
     },
-    GameGateway,
   ],
 })
 export class AppModule {}
