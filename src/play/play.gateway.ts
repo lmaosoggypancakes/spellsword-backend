@@ -8,9 +8,15 @@ import { Socket } from 'socket.io';
 import { Server } from 'net';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from '@prisma/client';
+import { GamesService } from 'src/games/games.service';
 @WebSocketGateway(8001, { cors: '*:*', path: '/matchmake' })
-export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
-  constructor(private authService: AuthService) {}
+export class MatchmakeGateway
+  implements OnGatewayDisconnect, OnGatewayConnection
+{
+  constructor(
+    private authService: AuthService,
+    private gameService: GamesService,
+  ) {}
   users = new Map<Socket, User>();
   async handleConnection(client: Socket, ...args: any[]) {
     const user: User = await this.authService.verify(
@@ -28,21 +34,25 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
 
     this.users.set(client, user);
     if (this.users.size == 2) {
-      const users = [];
-      for (let u of this.users.values()) {
-        users.push(u.username);
-      }
+      const newGame = await this.gameService.createGame(...this.users.values());
 
       this.server.emit('match', {
-        message: `You have been matched: ${users}`,
+        message: 'You have been matched!',
+        id: newGame.id,
       });
+
+      // cleanup
+
+      for (const s of this.users.keys()) {
+        s.disconnect(true);
+      }
+      this.users.clear();
     }
   }
   @WebSocketServer()
   server: Server;
 
-  handleDisconnect(client: Socket) {
-    console.log(`Size: ${this.users.size}`);
+  handleDisconnect() {
     this.server.emit('users-changed', {
       event: 'left',
     });

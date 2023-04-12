@@ -10,7 +10,6 @@ export const generateRandomSequence = () => {
   const randomConsonants = [...Array(numConsonants)].map(
     () => consonants[Math.floor(Math.random() * consonants.length)],
   );
-  console.log(randomVowels);
   const seq = randomVowels.concat(randomConsonants);
   return seq.join('');
 };
