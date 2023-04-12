@@ -9,7 +9,12 @@ import { Server } from 'net';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
-@WebSocketGateway(8001, { cors: '*:*', namespace: 'matchmake' })
+
+const port = parseInt(process.env.PORT) || 8000;
+@WebSocketGateway(port, {
+  cors: '*:*',
+  namespace: 'matchmake',
+})
 export class MatchmakeGateway
   implements OnGatewayDisconnect, OnGatewayConnection
 {
