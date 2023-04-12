@@ -9,7 +9,7 @@ import { Server } from 'net';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
-@WebSocketGateway(8001, { cors: '*:*', path: '/matchmake' })
+@WebSocketGateway(8001, { cors: '*:*', namespace: 'matchmake' })
 export class MatchmakeGateway
   implements OnGatewayDisconnect, OnGatewayConnection
 {
@@ -19,6 +19,7 @@ export class MatchmakeGateway
   ) {}
   users = new Map<Socket, User>();
   async handleConnection(client: Socket, ...args: any[]) {
+    console.log('user connected');
     const user: User = await this.authService.verify(
       client.handshake.auth.token,
       true,
@@ -34,6 +35,7 @@ export class MatchmakeGateway
 
     this.users.set(client, user);
     if (this.users.size == 2) {
+      console.log('match found!!!');
       const newGame = await this.gameService.createGame(...this.users.values());
 
       this.server.emit('match', {
@@ -52,7 +54,8 @@ export class MatchmakeGateway
   @WebSocketServer()
   server: Server;
 
-  handleDisconnect() {
+  handleDisconnect(client: Socket) {
+    this.users.delete(client);
     this.server.emit('users-changed', {
       event: 'left',
     });
