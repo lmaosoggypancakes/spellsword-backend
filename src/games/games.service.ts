@@ -21,4 +21,24 @@ export class GamesService {
       },
     });
   }
+
+  async getGameById(id: string): Promise<Game> {
+    return await this.prisma.game.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        characters: true,
+        status: true,
+        winnerId: true,
+        players: {
+          select: {
+            username: true,
+            picture: true,
+          },
+        },
+      },
+    });
+  }
 }
