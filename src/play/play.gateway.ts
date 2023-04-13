@@ -10,8 +10,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { User } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
 
-const port = parseInt(process.env.PORT) || 8000;
-@WebSocketGateway(port, {
+@WebSocketGateway({
   cors: '*:*',
   namespace: 'matchmake',
 })
