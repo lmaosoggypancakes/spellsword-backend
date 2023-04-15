@@ -4,10 +4,11 @@ import { ZodValidationPipe } from 'nestjs-zod';
 import { ApiModule } from './api/api.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { MatchmakeGateway } from './play/play.gateway';
 import { ConfigModule } from '@nestjs/config';
 import { PlayModule } from './play/play.module';
 import { GamesModule } from './games/games.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -16,6 +17,9 @@ import { GamesModule } from './games/games.module';
     AuthModule,
     PlayModule,
     GamesModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
   ],
   providers: [
     {
