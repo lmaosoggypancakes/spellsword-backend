@@ -17,9 +17,9 @@ import { join } from 'path';
     AuthModule,
     PlayModule,
     GamesModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'public'),
+    // }),
   ],
   providers: [
     {

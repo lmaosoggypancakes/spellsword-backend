@@ -1,6 +1,7 @@
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
@@ -13,6 +14,7 @@ import { GamesService } from 'src/games/games.service';
 @WebSocketGateway({
   cors: '*:*',
   namespace: 'matchmake',
+  path: '/',
 })
 export class MatchmakeGateway
   implements OnGatewayDisconnect, OnGatewayConnection
@@ -21,6 +23,8 @@ export class MatchmakeGateway
     private authService: AuthService,
     private gameService: GamesService,
   ) {}
+  @WebSocketServer()
+  server: Server;
   users = new Map<Socket, User>();
   async handleConnection(client: Socket, ...args: any[]) {
     console.log('user connected');
@@ -55,9 +59,11 @@ export class MatchmakeGateway
       this.users.clear();
     }
   }
-  @WebSocketServer()
-  server: Server;
 
+  @SubscribeMessage('events')
+  async events(...args) {
+    console.log('msg received!');
+  }
   handleDisconnect(client: Socket) {
     this.users.delete(client);
     this.server.emit('users-changed', {

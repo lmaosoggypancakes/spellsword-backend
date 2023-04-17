@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MatchmakeGateway } from './play.gateway';
+import { MatchmakeGateway } from './matchmake.gateway';
 import { AuthModule } from 'src/auth/auth.module';
 import { GamesModule } from 'src/games/games.module';
 
