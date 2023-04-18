@@ -8,8 +8,7 @@ import {
   WsException,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
-import { Server } from 'net';
+import { Socket, Server } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
 import { Game, Move, User } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
@@ -41,29 +40,33 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       this.games.set(game, [...this.games.get(game), socket]);
     }
 
-    console.log(this.games);
     socket.emit('welcome', {
       message: `Hello, ${user.username!}`,
-      game: game,
+      game,
     });
-    socket.join(game.id);
-    socket.to(game.id).emit('player-joined', {
+    await socket.join(game.id);
+    this.server.to(game.id).emit('player-joined', {
       user,
     });
 
-    console.log(socket.rooms.keys());
-    // if (socket.roomsgame.id).length == 2) {
-    // socket.to(game.id).emit('ready', {
-    // message: 'all players have joined!',
-    // });
-    // }
+    const roomLength = (await this.server.to(game.id).fetchSockets()).length;
+    console.log(roomLength);
+    if (roomLength == 2) {
+      this.server.to(game.id).emit('ready', {
+        message: 'all users joined!',
+      });
+    }
   }
   @WebSocketServer()
   server: Server;
 
-  handleDisconnect(client: Socket) {
+  handleDisconnect(socket: Socket) {
     this.server.emit('users-changed', {
       event: 'left',
+    });
+    socket.rooms.forEach((room) => {
+      socket.leave(room);
+      console.log(`socket ${socket.id} left room ${room}`);
     });
   }
 
