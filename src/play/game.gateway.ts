@@ -40,6 +40,8 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
     if (this.games.has(game)) {
       this.games.set(game, [...this.games.get(game), socket]);
     }
+
+    console.log(this.games);
     socket.emit('welcome', {
       message: `Hello, ${user.username!}`,
       game: game,
@@ -49,11 +51,12 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       user,
     });
 
-    if (socket.rooms[game.id].length == 2) {
-      socket.to(game.id).emit('ready', {
-        message: 'all players have joined!',
-      });
-    }
+    console.log(socket.rooms.keys());
+    // if (socket.roomsgame.id).length == 2) {
+    // socket.to(game.id).emit('ready', {
+    // message: 'all players have joined!',
+    // });
+    // }
   }
   @WebSocketServer()
   server: Server;
