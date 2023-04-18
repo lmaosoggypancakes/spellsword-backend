@@ -14,7 +14,6 @@ import { GamesService } from 'src/games/games.service';
 @WebSocketGateway({
   cors: '*:*',
   namespace: 'matchmake',
-  path: '/',
 })
 export class MatchmakeGateway
   implements OnGatewayDisconnect, OnGatewayConnection
