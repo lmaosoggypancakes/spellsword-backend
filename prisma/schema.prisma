@@ -40,10 +40,12 @@ model Move {
   userId      String
   game        Game      @relation(fields: [gameId], references: [id])
   gameId      String
-  defintion   String?
+  definition   String?
 }
 
 enum GameStatus {
   IN_PROGRESS
+  DRAW
   ENDED
 }
+

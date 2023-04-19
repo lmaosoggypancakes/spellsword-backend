@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User, Game, GameStatus, Move } from '@prisma/client';
+import { User, Game, GameStatus, Move, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { generateRandomSequence } from 'src/util/words';
 
@@ -42,7 +42,7 @@ export class GamesService {
     });
   }
 
-  async makeMove(move: Move) {
+  async makeMove(move: Prisma.MoveCreateInput) {
     return await this.prisma.move.create({ data: move });
   }
 }

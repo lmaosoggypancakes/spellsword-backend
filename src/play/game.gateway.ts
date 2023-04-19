@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
-import { Game, Move, User } from '@prisma/client';
+import { Game, User, Prisma } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
 
 @WebSocketGateway({
@@ -72,13 +72,13 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
 
   @SubscribeMessage('moves')
   async handleGameMoveOrEvent(
-    @MessageBody() data: Move,
+    @MessageBody() data: Prisma.MoveCreateInput,
     @ConnectedSocket() socket: Socket,
   ) {
     try {
-      const newMove = await this.gameService.makeMove(data);
-      socket.to(newMove.gameId).emit('new-move', {
-        data: newMove,
+      this.gameService.makeMove(data);
+      socket.to(data.game.connect.id).emit('new-move', {
+        data,
       });
     } catch (err) {
       throw new WsException(<string>err);
