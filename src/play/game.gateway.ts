@@ -6,7 +6,6 @@ import {
   WebSocketGateway,
   WebSocketServer,
   WsException,
-  ConnectedSocket,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
@@ -55,6 +54,7 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       this.server.to(game.id).emit('ready', {
         message: 'all users joined!',
       });
+      socket.emit('your-turn');
     }
   }
   @WebSocketServer()

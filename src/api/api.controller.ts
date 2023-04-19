@@ -5,7 +5,6 @@ import {
   NotFoundException,
   Param,
   Post,
-  Req,
   UseGuards,
 } from '@nestjs/common';
 import { Game, Prisma, User } from '@prisma/client';
