@@ -72,12 +72,12 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
 
   @SubscribeMessage('moves')
   async handleGameMoveOrEvent(
-    @MessageBody() data: Prisma.MoveCreateInput,
-    @ConnectedSocket() socket: Socket,
+    @MessageBody() data: Prisma.MoveUncheckedCreateInput,
   ) {
+    console.log(data.gameId);
     try {
-      this.gameService.makeMove(data);
-      socket.to(data.game.connect.id).emit('new-move', {
+      // this.gameService.makeMove(data.);
+      this.server.to(data.gameId).emit('new-move', {
         data,
       });
     } catch (err) {
