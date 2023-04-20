@@ -26,7 +26,6 @@ export class MatchmakeGateway
   server: Server;
   users = new Map<Socket, User>();
   async handleConnection(client: Socket, ...args: any[]) {
-    console.log('user connected');
     const user: User = await this.authService.verify(
       client.handshake.auth.token,
       true,
@@ -42,7 +41,6 @@ export class MatchmakeGateway
 
     this.users.set(client, user);
     if (this.users.size == 2) {
-      console.log('match found!!!');
       const newGame = await this.gameService.createGame(...this.users.values());
 
       this.server.emit('match', {
@@ -59,10 +57,6 @@ export class MatchmakeGateway
     }
   }
 
-  @SubscribeMessage('events')
-  async events(...args) {
-    console.log('msg received!');
-  }
   handleDisconnect(client: Socket) {
     this.users.delete(client);
     this.server.emit('users-changed', {

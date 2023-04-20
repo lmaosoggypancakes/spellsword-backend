@@ -23,9 +23,6 @@ export class GamesService {
   }
 
   async getGameById(id: string): Promise<Game> {
-    if (!id) {
-      console.log('ERROR: ID not provided. Aborting.');
-    }
     return await this.prisma.game.findUnique({
       where: {
         id,

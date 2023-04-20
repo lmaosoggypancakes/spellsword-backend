@@ -9,19 +9,19 @@ import {
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
-import { Game, User, Prisma } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
 
 @WebSocketGateway({
   cors: '*:*',
   namespace: 'play',
+  transports: ['websocket'],
 })
 export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
   constructor(
     private authService: AuthService,
     private gameService: GamesService,
   ) {}
-  games = new Map<Game, Socket[]>();
   async handleConnection(socket: Socket, ...args: any[]) {
     const user: User = await this.authService.verify(
       socket.handshake.auth.token,
@@ -32,25 +32,22 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       socket.disconnect(true);
       return;
     }
-    const gameId = socket.handshake.query.id;
-    const game = await this.gameService.getGameById(<string>gameId);
+    const gameId = socket.handshake.auth.id;
 
-    if (this.games.has(game)) {
-      this.games.set(game, [...this.games.get(game), socket]);
-    }
+    const game = await this.gameService.getGameById(<string>gameId);
 
     socket.emit('welcome', {
       message: `Hello, ${user.username!}`,
       game,
     });
+
     await socket.join(game.id);
     this.server.to(game.id).emit('player-joined', {
       user,
     });
 
     const roomLength = (await this.server.to(game.id).fetchSockets()).length;
-    console.log(roomLength);
-    if (roomLength == 2) {
+    if (roomLength >= 2) {
       this.server.to(game.id).emit('ready', {
         message: 'all users joined!',
       });
@@ -66,7 +63,6 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
     });
     socket.rooms.forEach((room) => {
       socket.leave(room);
-      console.log(`socket ${socket.id} left room ${room}`);
     });
   }
 
@@ -74,7 +70,6 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
   async handleGameMoveOrEvent(
     @MessageBody() data: Prisma.MoveUncheckedCreateInput,
   ) {
-    console.log(data.gameId);
     try {
       // this.gameService.makeMove(data.);
       this.server.to(data.gameId).emit('new-move', {
