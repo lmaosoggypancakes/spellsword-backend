@@ -41,6 +41,7 @@ model Move {
   game        Game      @relation(fields: [gameId], references: [id])
   gameId      String
   definition   String?
+  timestamp   DateTime  @default(now())
 }
 
 enum GameStatus {
