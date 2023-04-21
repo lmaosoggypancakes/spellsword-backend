@@ -37,6 +37,10 @@ export class ApiController {
     return user;
   }
 
+  @Get('users/:username/games')
+  async getUserGames(@Param('username') username: string) {
+    return await this.gameService.getUserGames(username);
+  }
   @Post('users')
   async createUser(@Body() data: CreateUserDto): Promise<User> {
     return await this.apiService.createUser({
