@@ -28,7 +28,8 @@ model Game {
   moves       Move[]    // a list of all moves both users have made
   status      GameStatus
   winner      User?      @relation("gameWinner", fields: [winnerId], references: [id])      
-  winnerId    String?   
+  winnerId    String?  
+  timestamp   DateTime  @default(now()) 
 }
 
 model Move {

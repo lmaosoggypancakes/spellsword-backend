@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User, Game, GameStatus, Move, Prisma } from '@prisma/client';
+import { User, Game, GameStatus, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { generateRandomSequence } from 'src/util/words';
 
@@ -28,6 +28,7 @@ export class GamesService {
         id,
       },
       select: {
+        timestamp: true,
         id: true,
         characters: true,
         status: true,
@@ -56,9 +57,11 @@ export class GamesService {
         },
       },
       select: {
+        timestamp: true,
         moves: {
           select: {
             points: true,
+            userId: true,
           },
         },
         id: true,
