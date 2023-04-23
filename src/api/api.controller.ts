@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { Game, Prisma, User } from '@prisma/client';
@@ -26,20 +27,18 @@ export class ApiController {
     return await this.usersService.users({});
   }
 
-  @Get('users/:username')
-  async getUser(@Param('username') username: string): Promise<User> {
-    const user = await this.usersService.user({ username });
+  @Get('users/:id')
+  async getUser(@Param('id') id: string): Promise<User> {
+    const user = await this.usersService.user({ id });
     if (!user) {
-      throw new NotFoundException(
-        'User with username ' + username + ' not found.',
-      );
+      throw new NotFoundException('User with id ' + id + ' not found.');
     }
     return user;
   }
 
-  @Get('users/:username/games')
-  async getUserGames(@Param('username') username: string) {
-    return await this.gameService.getUserGames(username);
+  @Get('users/:id/games')
+  async getUserGames(@Param('id') id: string) {
+    return await this.gameService.getUserGames(id);
   }
   @Post('users')
   async createUser(@Body() data: CreateUserDto): Promise<User> {
@@ -51,5 +50,15 @@ export class ApiController {
   @Get('games/:id')
   async getGame(@Param('id') id: string): Promise<Game> {
     return await this.gameService.getGameById(id);
+  }
+
+  @Put('users/:id')
+  async updateUsers(@Param('id') id: string, @Body() data): Promise<User> {
+    return this.usersService.updateUser({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 }

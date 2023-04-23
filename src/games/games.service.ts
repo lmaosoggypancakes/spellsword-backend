@@ -47,21 +47,27 @@ export class GamesService {
     return await this.prisma.move.create({ data: move });
   }
 
-  async getUserGames(username: string) {
+  async getUserGames(id: string) {
     return await this.prisma.game.findMany({
       where: {
         players: {
           some: {
-            username,
+            id,
           },
         },
       },
       select: {
         timestamp: true,
+        characters: true,
         moves: {
           select: {
             points: true,
             userId: true,
+          },
+        },
+        players: {
+          select: {
+            username: true,
           },
         },
         id: true,
