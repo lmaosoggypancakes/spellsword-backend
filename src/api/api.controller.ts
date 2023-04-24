@@ -61,4 +61,9 @@ export class ApiController {
       data,
     });
   }
+
+  @Put('games/:id/game_over')
+  async markGameAsOver(@Param('id') id: string, @Body() data): Promise<Game> {
+    return this.gameService.gameOver(id, data.winner_id);
+  }
 }

@@ -43,8 +43,23 @@ export class GamesService {
     });
   }
 
-  async makeMove(move: Prisma.MoveCreateInput) {
-    return await this.prisma.move.create({ data: move });
+  async makeMove(move: Prisma.MoveCreateManyInput) {
+    return await this.prisma.move.create({ data: { ...move } });
+  }
+
+  async gameOver(gameId: string, winnerId: string) {
+    return this.prisma.game.update({
+      where: {
+        id: gameId,
+      },
+      data: {
+        winner: {
+          connect: {
+            id: winnerId,
+          },
+        },
+      },
+    });
   }
 
   async getUserGames(id: string) {
