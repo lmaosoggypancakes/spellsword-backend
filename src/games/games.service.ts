@@ -53,12 +53,9 @@ export class GamesService {
         id: gameId,
       },
       data: {
-        winner: {
-          connect: {
-            id: winnerId,
-          },
-        },
+        winnerId,
         status: GameStatus.ENDED,
+        },
       },
     });
   }
