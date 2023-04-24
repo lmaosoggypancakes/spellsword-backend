@@ -58,6 +58,7 @@ export class GamesService {
             id: winnerId,
           },
         },
+        status: GameStatus.ENDED,
       },
     });
   }
