@@ -64,6 +64,8 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
     socket.rooms.forEach((room) => {
       socket.leave(room);
     });
+
+    socket.disconnect(true);
   }
 
   @SubscribeMessage('moves')
