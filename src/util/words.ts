@@ -1,8 +1,8 @@
 export const consonants = 'BCDFGHJKLMNPQRSTVWXYZ';
 export const vowels = 'AEIOU';
 export const alphabet = consonants + vowels;
-export const numVowels = 3;
-export const numConsonants = 5;
+export const numVowels = 5;
+export const numConsonants = 8;
 export const generateRandomSequence = () => {
   const randomVowels = [...Array(numVowels)].map(
     () => vowels[Math.floor(Math.random() * vowels.length)],
