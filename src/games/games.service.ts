@@ -55,7 +55,6 @@ export class GamesService {
       data: {
         winnerId,
         status: GameStatus.ENDED,
-        },
       },
     });
   }
@@ -81,6 +80,7 @@ export class GamesService {
         players: {
           select: {
             username: true,
+            id: true,
           },
         },
         id: true,
