@@ -1,10 +1,10 @@
 {
   "name": "spellsword-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Spellsword is an interactive web-based game designed to improve our command of the English language.",
+  "author": "Josef, Mikeal & Anthony",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
