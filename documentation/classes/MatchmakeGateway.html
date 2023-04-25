@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Spellsword API Documentation</title>
+        <title>spellsword-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">Spellsword API Documentation</a>
+            <a href="../" class="navbar-brand">spellsword-backend documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -62,7 +62,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/play/play.gateway.ts</code>
+            <code>src/play/matchmake.gateway.ts</code>
         </p>
 
 
@@ -137,7 +137,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/play/play.gateway.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/play/matchmake.gateway.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -220,7 +220,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/play/play.gateway.ts:59</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/play/matchmake.gateway.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -245,7 +245,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/play/play.gateway.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/play/matchmake.gateway.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -281,8 +281,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/play/play.gateway.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/play/matchmake.gateway.ts:28</a></div>
                 </td>
             </tr>
 
@@ -362,8 +362,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/play/play.gateway.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/play/matchmake.gateway.ts:60</a></div>
                 </td>
             </tr>
 
@@ -424,6 +424,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   OnGatewayConnection,
   OnGatewayDisconnect,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from &#x27;@nestjs/websockets&#x27;;
@@ -444,9 +445,10 @@ export class MatchmakeGateway
     private authService: AuthService,
     private gameService: GamesService,
   ) {}
+  @WebSocketServer()
+  server: Server;
   users &#x3D; new Map&lt;Socket, User&gt;();
   async handleConnection(client: Socket, ...args: any[]) {
-    console.log(&#x27;user connected&#x27;);
     const user: User &#x3D; await this.authService.verify(
       client.handshake.auth.token,
       true,
@@ -462,7 +464,6 @@ export class MatchmakeGateway
 
     this.users.set(client, user);
     if (this.users.size &#x3D;&#x3D; 2) {
-      console.log(&#x27;match found!!!&#x27;);
       const newGame &#x3D; await this.gameService.createGame(...this.users.values());
 
       this.server.emit(&#x27;match&#x27;, {
@@ -478,8 +479,6 @@ export class MatchmakeGateway
       this.users.clear();
     }
   }
-  @WebSocketServer()
-  server: Server;
 
   handleDisconnect(client: Socket) {
     this.users.delete(client);

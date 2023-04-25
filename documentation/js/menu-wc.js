@@ -15,7 +15,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
         <nav>
             <ul class="list">
                 <li class="title">
-                    <a href="index.html" data-type="index-link">Spellsword API Documentation</a>
+                    <a href="index.html" data-type="index-link">spellsword-backend documentation</a>
                 </li>
 
                 <li class="divider"></li>
@@ -184,6 +184,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/CreateUserDto.html" data-type="entity-link" >CreateUserDto</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/GameGateway.html" data-type="entity-link" >GameGateway</a>
                             </li>
                             <li class="link">
                                 <a href="classes/MatchmakeGateway.html" data-type="entity-link" >MatchmakeGateway</a>

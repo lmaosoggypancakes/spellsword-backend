@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Spellsword API Documentation</title>
+        <title>spellsword-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">Spellsword API Documentation</a>
+            <a href="../" class="navbar-brand">spellsword-backend documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -150,12 +150,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
-import { MatchmakeGateway } from &#x27;./play.gateway&#x27;;
+import { MatchmakeGateway } from &#x27;./matchmake.gateway&#x27;;
 import { AuthModule } from &#x27;src/auth/auth.module&#x27;;
 import { GamesModule } from &#x27;src/games/games.module&#x27;;
+import { GameGateway } from &#x27;./game.gateway&#x27;;
 
 @Module({
-  providers: [MatchmakeGateway],
+  providers: [MatchmakeGateway, GameGateway],
   imports: [AuthModule, GamesModule],
 })
 export class PlayModule {}

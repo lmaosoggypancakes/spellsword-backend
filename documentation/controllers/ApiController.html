@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Spellsword API Documentation</title>
+        <title>spellsword-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">Spellsword API Documentation</a>
+            <a href="../" class="navbar-brand">spellsword-backend documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -99,6 +99,18 @@
                                     <span class="modifier">Async</span>
                                 <a href="#getUser" >getUser</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getUserGames" >getUserGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#markGameAsOver" >markGameAsOver</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateUsers" >updateUsers</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -145,8 +157,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/api/api.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/api/api.controller.ts:44</a></div>
                 </td>
             </tr>
 
@@ -269,8 +281,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/api/api.controller.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/api/api.controller.ts:51</a></div>
                 </td>
             </tr>
 
@@ -333,7 +345,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getUser(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getUser(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -341,7 +353,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;users/:username&#x27;)<br /></code>
+                    <code>@Get(&#x27;users/:id&#x27;)<br /></code>
                 </td>
             </tr>
 
@@ -369,9 +381,265 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>username</td>
+                                    <td>id</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;User&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserGames"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getUserGames</b></span>
+                        <a href="#getUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUserGames(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;users/:id/games&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/api/api.controller.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markGameAsOver"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>markGameAsOver</b></span>
+                        <a href="#markGameAsOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>markGameAsOver(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;games/:id/game_over&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">src/api/api.controller.ts:66</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;Game&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUsers"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>updateUsers</b></span>
+                        <a href="#updateUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUsers(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;users/:id&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/api/api.controller.ts:56</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
                                     </td>
 
                                     <td>
@@ -407,7 +675,7 @@
   NotFoundException,
   Param,
   Post,
-  Req,
+  Put,
   UseGuards,
 } from &#x27;@nestjs/common&#x27;;
 import { Game, Prisma, User } from &#x27;@prisma/client&#x27;;
@@ -429,17 +697,19 @@ export class ApiController {
     return await this.usersService.users({});
   }
 
-  @Get(&#x27;users/:username&#x27;)
-  async getUser(@Param(&#x27;username&#x27;) username: string): Promise&lt;User&gt; {
-    const user &#x3D; await this.usersService.user({ username });
+  @Get(&#x27;users/:id&#x27;)
+  async getUser(@Param(&#x27;id&#x27;) id: string): Promise&lt;User&gt; {
+    const user &#x3D; await this.usersService.user({ id });
     if (!user) {
-      throw new NotFoundException(
-        &#x27;User with username &#x27; + username + &#x27; not found.&#x27;,
-      );
+      throw new NotFoundException(&#x27;User with id &#x27; + id + &#x27; not found.&#x27;);
     }
     return user;
   }
 
+  @Get(&#x27;users/:id/games&#x27;)
+  async getUserGames(@Param(&#x27;id&#x27;) id: string) {
+    return await this.gameService.getUserGames(id);
+  }
   @Post(&#x27;users&#x27;)
   async createUser(@Body() data: CreateUserDto): Promise&lt;User&gt; {
     return await this.apiService.createUser({
@@ -450,6 +720,21 @@ export class ApiController {
   @Get(&#x27;games/:id&#x27;)
   async getGame(@Param(&#x27;id&#x27;) id: string): Promise&lt;Game&gt; {
     return await this.gameService.getGameById(id);
+  }
+
+  @Put(&#x27;users/:id&#x27;)
+  async updateUsers(@Param(&#x27;id&#x27;) id: string, @Body() data): Promise&lt;User&gt; {
+    return this.usersService.updateUser({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
+
+  @Put(&#x27;games/:id/game_over&#x27;)
+  async markGameAsOver(@Param(&#x27;id&#x27;) id: string, @Body() data): Promise&lt;Game&gt; {
+    return this.gameService.gameOver(id, data.winner_id);
   }
 }
 </code></pre>

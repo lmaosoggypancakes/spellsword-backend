@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Spellsword API Documentation</title>
+        <title>spellsword-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">Spellsword API Documentation</a>
+            <a href="../" class="navbar-brand">spellsword-backend documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -84,7 +84,19 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#gameOver" >gameOver</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getGameById" >getGameById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getUserGames" >getUserGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#makeMove" >makeMove</a>
                             </li>
                         </ul>
                     </td>
@@ -227,6 +239,89 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="gameOver"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>gameOver</b></span>
+                        <a href="#gameOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>gameOver(gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, winnerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/games/games.service.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>gameId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>winnerId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getGameById"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -294,6 +389,148 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserGames"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getUserGames</b></span>
+                        <a href="#getUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUserGames(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/games/games.service.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="makeMove"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>makeMove</b></span>
+                        <a href="#makeMove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>makeMove(move: Prisma.MoveCreateManyInput)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/games/games.service.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>move</td>
+                                    <td>
+                                            <code>Prisma.MoveCreateManyInput</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
     </div>
@@ -301,7 +538,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-import { User, Game, GameStatus } from &#x27;@prisma/client&#x27;;
+import { User, Game, GameStatus, Prisma } from &#x27;@prisma/client&#x27;;
 import { PrismaService } from &#x27;src/prisma.service&#x27;;
 import { generateRandomSequence } from &#x27;src/util/words&#x27;;
 
@@ -330,6 +567,7 @@ export class GamesService {
         id,
       },
       select: {
+        timestamp: true,
         id: true,
         characters: true,
         status: true,
@@ -338,6 +576,56 @@ export class GamesService {
           select: {
             username: true,
             picture: true,
+          },
+        },
+      },
+    });
+  }
+
+  async makeMove(move: Prisma.MoveCreateManyInput) {
+    return await this.prisma.move.create({ data: { ...move } });
+  }
+
+  async gameOver(gameId: string, winnerId: string) {
+    return this.prisma.game.update({
+      where: {
+        id: gameId,
+      },
+      data: {
+        winnerId,
+        status: GameStatus.ENDED,
+      },
+    });
+  }
+
+  async getUserGames(id: string) {
+    return await this.prisma.game.findMany({
+      where: {
+        players: {
+          some: {
+            id,
+          },
+        },
+      },
+      select: {
+        timestamp: true,
+        characters: true,
+        moves: {
+          select: {
+            points: true,
+            userId: true,
+          },
+        },
+        players: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+        id: true,
+        winner: {
+          select: {
+            username: true,
           },
         },
       },
