@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User, Game, GameStatus, Prisma } from '@prisma/client';
+import { User, Game, GameStatus, Prisma, Difficulty } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { generateRandomSequence } from 'src/util/words';
 
@@ -7,10 +7,11 @@ import { generateRandomSequence } from 'src/util/words';
 export class GamesService {
   constructor(private prisma: PrismaService) {}
 
-  async createGame(...users: User[]): Promise<Game> {
+  async createGame(difficulty: Difficulty, ...users: User[]): Promise<Game> {
     return await this.prisma.game.create({
       data: {
         status: GameStatus.IN_PROGRESS,
+        difficulty,
         players: {
           connect: users.map((user) => {
             return { id: user.id };
@@ -28,6 +29,7 @@ export class GamesService {
         id,
       },
       select: {
+        difficulty: true,
         timestamp: true,
         id: true,
         characters: true,

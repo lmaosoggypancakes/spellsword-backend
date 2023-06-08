@@ -8,7 +8,7 @@ import {
 import { Socket } from 'socket.io';
 import { Server } from 'net';
 import { AuthService } from 'src/auth/auth.service';
-import { User } from '@prisma/client';
+import { Difficulty, User } from '@prisma/client';
 import { GamesService } from 'src/games/games.service';
 
 @WebSocketGateway({
@@ -24,7 +24,11 @@ export class MatchmakeGateway
   ) {}
   @WebSocketServer()
   server: Server;
-  users = new Map<Socket, User>();
+  users = {
+    [Difficulty.ADVENTURE]: new Map<Socket, User>(),
+    [Difficulty.CASUAL]: new Map<Socket, User>(),
+    [Difficulty.MASTER]: new Map<Socket, User>(),
+  };
   async handleConnection(client: Socket, ...args: any[]) {
     const user: User = await this.authService.verify(
       client.handshake.auth.token,
@@ -35,13 +39,23 @@ export class MatchmakeGateway
       client.disconnect(true);
       return;
     }
+    const difficulty: Difficulty = client.handshake.auth.difficulty;
+    if (!Object.values(Difficulty).includes(difficulty)) {
+      client.emit('error', 'Invalid difficulty.');
+      client.disconnect(true);
+      return;
+    }
+
     client.emit('welcome', {
       message: `Hello, ${user.username}!`,
     });
-
-    this.users.set(client, user);
-    if (this.users.size == 2) {
-      const newGame = await this.gameService.createGame(...this.users.values());
+    const pool = this.users[difficulty];
+    pool.set(client, user);
+    if (pool.size == 2) {
+      const newGame = await this.gameService.createGame(
+        difficulty,
+        ...pool.values(),
+      );
 
       this.server.emit('match', {
         message: 'You have been matched!',
@@ -50,15 +64,19 @@ export class MatchmakeGateway
 
       // cleanup
 
-      for (const s of this.users.keys()) {
+      for (const s of pool.keys()) {
         s.disconnect(true);
       }
-      this.users.clear();
+      pool.clear();
     }
   }
 
   handleDisconnect(client: Socket) {
-    this.users.delete(client);
+    const difficulty: Difficulty = client.handshake.auth.difficulty;
+    const pool = this.users[difficulty];
+    if (!pool) return;
+    pool.delete(client);
+
     this.server.emit('users-changed', {
       event: 'left',
     });
