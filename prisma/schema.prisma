@@ -30,6 +30,7 @@ model Game {
   winner      User?      @relation("gameWinner", fields: [winnerId], references: [id])      
   winnerId    String?  
   timestamp   DateTime  @default(now()) 
+  difficulty  Difficulty @default(ADVENTURE)
 }
 
 model Move {
@@ -49,5 +50,11 @@ enum GameStatus {
   IN_PROGRESS
   DRAW
   ENDED
+}
+
+enum Difficulty {
+  CASUAL
+  ADVENTURE
+  MASTER
 }
 
