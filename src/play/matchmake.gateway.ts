@@ -45,7 +45,7 @@ export class MatchmakeGateway
       client.disconnect(true);
       return;
     }
-
+    console.log(difficulty);
     client.emit('welcome', {
       message: `Hello, ${user.username}!`,
     });

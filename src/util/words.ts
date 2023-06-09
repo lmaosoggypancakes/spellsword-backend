@@ -15,6 +15,7 @@ export const numConsonants = {
 export const generateRandomSequence = (
   difficulty: Difficulty = Difficulty.ADVENTURE,
 ) => {
+  console.log(difficulty);
   const randomVowels = [...Array(numVowels[difficulty])].map(
     () => vowels[Math.floor(Math.random() * vowels.length)],
   );

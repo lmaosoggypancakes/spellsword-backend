@@ -8,6 +8,7 @@ export class GamesService {
   constructor(private prisma: PrismaService) {}
 
   async createGame(difficulty: Difficulty, ...users: User[]): Promise<Game> {
+    console.log(difficulty);
     return await this.prisma.game.create({
       data: {
         status: GameStatus.IN_PROGRESS,
@@ -18,7 +19,7 @@ export class GamesService {
           }),
         },
         moves: { create: [] },
-        characters: generateRandomSequence(),
+        characters: generateRandomSequence(difficulty),
       },
     });
   }
