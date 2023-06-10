@@ -18,9 +18,9 @@ import { join } from 'path';
     PlayModule,
     GamesModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', '..', 'public'),
       exclude: ['/auth', '/api', '/socket.io'],
-      serveRoot: '/static',
+      serveRoot: '/static/',
     }),
   ],
   providers: [
