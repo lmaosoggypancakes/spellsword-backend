@@ -52,6 +52,11 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
         message: 'all users joined!',
       });
       socket.emit('your-turn');
+      // assuming that there are 2 connected sockets, emit to the other one
+      const sockets = await this.server.to(game.id).fetchSockets();
+      if (sockets[0].id === socket.id) {
+        sockets[1].emit("you're-next");
+      }
     }
   }
   @WebSocketServer()
