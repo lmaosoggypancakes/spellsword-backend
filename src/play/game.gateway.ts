@@ -1,4 +1,5 @@
 import {
+  ConnectedSocket,
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -86,5 +87,15 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
     } catch (err) {
       throw new WsException(<string>err);
     }
+  }
+
+  @SubscribeMessage('chat')
+  async handleIncomingChatMessage(
+    @MessageBody() data: { message: string; username: string; gameId: string },
+    @ConnectedSocket() socket: Socket,
+  ) {
+    socket
+      .to(data.gameId)
+      .emit('chat', { message: data.message, username: data.username });
   }
 }
