@@ -82,6 +82,7 @@ export class GamesService {
         },
         players: {
           select: {
+            picture: true,
             username: true,
             id: true,
           },
