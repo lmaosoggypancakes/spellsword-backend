@@ -55,8 +55,9 @@ export class GameGateway implements OnGatewayDisconnect, OnGatewayConnection {
       socket.emit('your-turn');
       // assuming that there are 2 connected sockets, emit to the other one
       const sockets = await this.server.to(game.id).fetchSockets();
-      if (sockets[0].id === socket.id) {
-        sockets[1].emit("you're-next");
+      if (sockets[1].id === socket.id) {
+        console.log('emitting to 1');
+        sockets[0].emit("you're-next");
       }
     }
   }
