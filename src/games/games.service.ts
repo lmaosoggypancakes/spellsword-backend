@@ -78,6 +78,7 @@ export class GamesService {
           select: {
             points: true,
             userId: true,
+            guess: true 
           },
         },
         players: {
